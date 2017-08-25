@@ -8,8 +8,8 @@ Testing deltasigma toolbox's function, find bug, or verify function.
 # from __future__ import division
 import numpy as np
 import matplotlib.pyplot as plt
-from deltasigma import synthesizeNTF, simulateDSM, ds_hann, calculateSNR, evalTF
-from deltasigma import dbv, figureMagic, dbp
+from deltasigma import (calculateSNR, dbp, dbv, ds_hann, evalTF, figureMagic,
+                        simulateDSM, synthesizeNTF)
 
 #%% 
 ORDER = 6
