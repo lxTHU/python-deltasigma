@@ -19,11 +19,11 @@ h0p5 = synthesizeNTF(order=ORDER, osr=OSR, opt=0, H_inf=1.5, f0=FC)
 print(h0p5)
 
 #%%
-N = 8192
+N = 16384
 FB = int(np.ceil(N / (2. * OSR)))
 # ftest = np.floor(2. / 3. * FB)  #for LPF_DSM
 ftest = N//4 - np.floor(1. / 8. * FB) #for HPF_DSM
-input_cos = 0.5 * np.sin(2 * np.pi * ftest * np.arange(N) / N)
+input_cos = 0.4 * np.sin(2 * np.pi * ftest * np.arange(N) / N)
 output_DSM, xn, xmax, y = simulateDSM(input_cos, h0p5)
 t = np.arange(301)
 
@@ -48,6 +48,7 @@ figureMagic([0, 0.5], 0.05, None, [-140, 0], 20,
 plt.xlabel('Normalized Frequency')
 plt.ylabel('dBFS')
 snr = calculateSNR(spec[2:FB + 1], ftest - 2) #for LPF_DSM
+# snr = calculateSNR(spec[N//4-FB:N//4], ftest, 4) #for HPF_DSM
 plt.text(0.05, -10, 'SNR = %4.1fdB @ OSR = %d' %
          (snr, OSR), verticalalignment='center')
 NBW = 1.5 / N

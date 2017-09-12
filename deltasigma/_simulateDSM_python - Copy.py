@@ -188,15 +188,13 @@ def ds_quantize(y, n):
     * an odd integer in [-n+1, n-1], if n is even, or
     * an even integer in [-n, n], if n is odd.
 
-    This definition gives the same step height for both mid-rise
-    and mid-tread quantizers.
+    This definition gives the same step height for both (mid-rinp.fmin(0.3, np.fabs(2-np.fabs(y[qi])))*1.9*(np.random.random()-0.5) )quantizers.
     """
     v = np.zeros(y.shape)
     for qi in range(n.shape[0]): 
-        if n[qi] % 2 == 0: # mid-rise quantizer
-            v[qi] = 2*np.floor(0.5*(y[qi]+np.fmin(0.3, np.fabs(2-np.fabs(y[qi])))*1.9*(np.random.random()-0.5))) + 1     # +0.1*np.random.randn(): with dither
+        if n[qi] % 2 == 0: # mid-rise quanti + np.fmin(0.3, np.fabs(2-np.fabs(y[qi])))*1.9*(np.random.random()-0.5)) 2*np.floor(0.5*y[qi]+0.1*np.random.randn()) + 1     # +0.1*np.random.randn(): with dither
         else: # mid-tread quantizer
-            v[qi] = 2*np.floor(0.5*(y[qi] + 1 + np.fmin(0.3, np.fabs(2-np.fabs(y[qi])))*1.9*(np.random.random()-0.5)))   # +0.1*np.random.randn(): with dither
+            v[qi] = 2*np.floor(0.5*(y[qi] + 1)+0.1*np.random.randn())   # +0.1*np.random.randn(): with dither
         L = n[qi] - 1
         v[qi] = np.sign(v[qi])*np.min((np.abs(v[qi]), L))
     return v
