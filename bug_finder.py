@@ -28,7 +28,7 @@ output_DSM, xn, xmax, y = simulateDSM(input_cos, h0p5)
 t = np.arange(301)
 
 #%%
-plt.figure(figsize=(20, 4))
+plt.figure(figsize=(12, 3))
 plt.step(t, input_cos[t], 'r')
 plt.step(t, output_DSM[t], 'g')
 plt.axis([0, 300, -1.2, 1.2])
@@ -43,13 +43,11 @@ plt.show()
 f = np.linspace(0, 0.5, NS / 2. + 1)
 spec = np.fft.fft(output_DSM * ds_hann(NS)) / (NS / 4)
 plt.plot(f, dbv(spec[:int(NS / 2. + 1)]), 'b', label='Simulation')
-figureMagic([0, 0.5], 0.05, None, [-140, 0], 20,
-            None, (16, 6), 'Output Spectrum')
+figureMagic([0, 0.5], 0.05, None, [-140, 0], 20, None, (16, 6), 'Output Spectrum')
 plt.xlabel('Normalized Frequency')
 plt.ylabel('dBFS')
 snr = calculateSNR(spec[2:FB + 1], ftest - 2) #for LPF_DSM
-plt.text(0.05, -10, 'SNR = %4.1fdB @ OSR = %d' %
-         (snr, OSR), verticalalignment='center')
+plt.text(0.05, -10, 'SNR = %4.1fdB @ OSR = %d' %(snr, OSR), verticalalignment='center')
 NBW = 1.5 / NS
 Sqq = 4 * evalTF(h0p5, np.exp(2j * np.pi * f)) ** 2 / 3.
 plt.plot(f, dbp(Sqq * NBW), 'm', linewidth=2, label='Expected PSD')
